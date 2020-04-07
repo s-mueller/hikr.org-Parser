@@ -17,11 +17,11 @@ import li.sebastianmueller.hikr.util.Util;
 
 public class ImageExtractor {
 
-	private static final String FILES_URL = "http://f.hikr.org/files/";
+	private static final String FILES_URL = "https://f.hikr.org/files/";
 	private static final String PDF = ".pdf";
 	private static final String HTML = ".html";
 	private static final String PHOTO = "photo";
-	private static final String PDF_LOGO_URL = "http://s.hikr.org/images/pdflogo.png";
+	private static final String PDF_LOGO_URL = "https://s.hikr.org/images/pdflogo.png";
 	private static final String IMAGES_FOLDER = "bilder/";
 	private static final String GALLERY_TAG = "new_gallery";
 	private static final String SRC_TAG = "src";
@@ -31,27 +31,31 @@ public class ImageExtractor {
 	
 	public static List<ImageDTO> getImageLinks(Document doc, String path, String postID) throws MalformedURLException, IOException {
 		List<ImageDTO> imageIDs = new ArrayList<ImageDTO>();
-		Elements images = doc.getElementById(GALLERY_TAG).select(IMAGE_TAG);
-		Elements hrefs = doc.getElementById(GALLERY_TAG).select("a");
-		
-		int imageCounter = 1;
-		StringBuilder imageTitles = new StringBuilder();
-		for (Element image : images) {
-			String url = image.absUrl(SRC_TAG);
-			if (url.equals(PDF_LOGO_URL)) {
-				Element href = hrefs.get(imageCounter - 1);
-				String newURL = href.toString();
-				newURL = newURL.substring(newURL.indexOf(PHOTO) + PHOTO.length(), newURL.indexOf(HTML));
-				url = FILES_URL + newURL + PDF;
-			} else {
-				String title = image.attr(IMAGE_TITLE_ATTRIBUTE);
-				imageTitles.append(imageCounter + ": " + title + LINEBREAK);
-				url = url.substring(0, url.length() - 5) + url.substring(url.length() - 4, url.length());
+		Element galleryElement = doc.getElementById(GALLERY_TAG);
+		Elements images = galleryElement == null ? new Elements() : galleryElement.select(IMAGE_TAG);
+		Element linkElement = doc.getElementById(GALLERY_TAG);
+		Elements hrefs = linkElement == null ? new Elements() : linkElement.select("a");
+
+		if (!images.isEmpty()) {
+			int imageCounter = 1;
+			StringBuilder imageTitles = new StringBuilder();
+			for (Element image : images) {
+				String url = image.absUrl(SRC_TAG);
+				if (url.equals(PDF_LOGO_URL)) {
+					Element href = hrefs.get(imageCounter - 1);
+					String newURL = href.toString();
+					newURL = newURL.substring(newURL.indexOf(PHOTO) + PHOTO.length(), newURL.indexOf(HTML));
+					url = FILES_URL + newURL + PDF;
+				} else {
+					String title = image.attr(IMAGE_TITLE_ATTRIBUTE);
+					imageTitles.append(imageCounter + ": " + title + LINEBREAK);
+					url = url.substring(0, url.length() - 5) + url.substring(url.length() - 4, url.length());
+				}
+				imageIDs.add(new ImageDTO(getImageID(url), url));
+				imageCounter++;
 			}
-			imageIDs.add(new ImageDTO(getImageID(url), url));
-			imageCounter++;
+			imageTitles.deleteCharAt(imageTitles.lastIndexOf(LINEBREAK));
 		}
-		imageTitles.deleteCharAt(imageTitles.lastIndexOf(LINEBREAK));
 		return imageIDs;
 	}
 	

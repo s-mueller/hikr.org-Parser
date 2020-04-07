@@ -16,7 +16,7 @@ public class GPSExtractor {
 	private static final String GPS_FOLDER = "gps/";
 	private static final String GEO_TAG = "geo_table";
 	private static final String HREF = "href";
-	private static final String HTTP = "http:";
+	private static final String HTTP = "https:";
 	private static final String LINK_TAG = "a";
 	
 	public static void extract(Document doc, String path) {

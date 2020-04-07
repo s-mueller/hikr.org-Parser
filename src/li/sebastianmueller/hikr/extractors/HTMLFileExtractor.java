@@ -14,7 +14,7 @@ import li.sebastianmueller.hikr.util.Util;
 public class HTMLFileExtractor {
 
 	private static final String IMAGE_SEPARATOR = "%2C";
-	private static final String PRINT_URL = "http://www.hikr.org/print_rando.php?p_rando_font=medium&p_rando_box=on&p_rando_text=on&p_rando_comments=on&p_rando_photos=on&p_photo_size=large&post_id=";
+	private static final String PRINT_URL = "https://www.hikr.org/print_rando.php?p_rando_font=medium&p_rando_box=on&p_rando_text=on&p_rando_comments=on&p_rando_photos=on&p_photo_size=large&post_id=";
 	private static final String SELECTION_URL = "&photos_sel=%2C";
 	private static final String PRINT_ACTION_URL = "&act=print&submit=Drucken";
 	

@@ -14,7 +14,7 @@ import li.sebastianmueller.hikr.util.Util;
 
 public class ExtractHTML {
 
-	private static final String HIKR_URL = "http://www.hikr.org/user/";
+	private static final String HIKR_URL = "https://www.hikr.org/user/";
 	private static final String TOUR_URL = "/tour/";
 	private static final String SKIP_URL = "?skip=";
 	

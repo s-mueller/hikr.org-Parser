@@ -17,7 +17,7 @@ import li.sebastianmueller.hikr.util.InputStreamParser;
 public class LinkExtractor {
 
 	private static final String HTML_A_HREF_TAG_PATTERN = "\\s*(?i)href\\s*=\\s*(\"([^\"]*\")|'[^']*'|([^'\">\\s]+))";
-	private static final String POST_URL = "http://www.hikr.org/tour/post";
+	private static final String POST_URL = "https://www.hikr.org/tour/post";
 	
 	public static List<String> extract(String url) throws ClientProtocolException, IOException {
 		List<String> links = new ArrayList<String>();
