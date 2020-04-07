@@ -18,7 +18,7 @@ public class ExtractHTML {
 	private static final String TOUR_URL = "/tour/";
 	private static final String SKIP_URL = "?skip=";
 	
-	public static List<HikrListener> listeners = new ArrayList<HikrListener>();
+	public static List<HikrListener> listeners = new ArrayList<>();
 	
 	public static void addListener(HikrListener listener) {
 		if (!listeners.contains(listener)) {
@@ -26,7 +26,7 @@ public class ExtractHTML {
 		}
 	}
 	
-	public static void parse(String userName, int startPosition) throws MalformedURLException, IOException {
+	public static void parse(String userName, int startPosition) throws IOException {
 		List<String> links = getAllLinksForHikrUser(userName);
 		
 		double count = 1;
@@ -61,7 +61,7 @@ public class ExtractHTML {
 		return link.substring(link.indexOf("post") + "post".length(), link.lastIndexOf("."));
 	}
 	
-	private static List<String> getAllLinksForHikrUser(String userName) throws ClientProtocolException, IOException {
+	private static List<String> getAllLinksForHikrUser(String userName) throws IOException {
 		List<String> links = new ArrayList<String>();
 		int tourCounter = 0;
 		boolean endReached = false;

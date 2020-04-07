@@ -18,7 +18,7 @@ public class HTMLFileExtractor {
 	private static final String SELECTION_URL = "&photos_sel=%2C";
 	private static final String PRINT_ACTION_URL = "&act=print&submit=Drucken";
 	
-	public static void extract(String userName, Document doc, String postID) throws MalformedURLException, IOException {
+	public static void extract(String userName, Document doc, String postID) throws IOException {
 		List<ImageDTO> images = ImageExtractor.getImageLinks(doc, userName + "/", postID);
 		
 		String imagePart = "";

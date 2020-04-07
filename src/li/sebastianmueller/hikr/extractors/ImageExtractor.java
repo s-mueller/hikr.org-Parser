@@ -29,8 +29,8 @@ public class ImageExtractor {
 	private static final String IMAGE_TAG = "img";
 	private static final String LINEBREAK = "\n";
 	
-	public static List<ImageDTO> getImageLinks(Document doc, String path, String postID) throws MalformedURLException, IOException {
-		List<ImageDTO> imageIDs = new ArrayList<ImageDTO>();
+	public static List<ImageDTO> getImageLinks(Document doc) {
+		List<ImageDTO> imageIDs = new ArrayList<>();
 		Element galleryElement = doc.getElementById(GALLERY_TAG);
 		Elements images = galleryElement == null ? new Elements() : galleryElement.select(IMAGE_TAG);
 		Element linkElement = doc.getElementById(GALLERY_TAG);
@@ -59,8 +59,8 @@ public class ImageExtractor {
 		return imageIDs;
 	}
 	
-	public static void extract(Document doc, String path, String postID) throws MalformedURLException, IOException {
-		List<ImageDTO> images = getImageLinks(doc, path, postID);
+	public static void extract(Document doc, String path, String postID) throws IOException {
+		List<ImageDTO> images = getImageLinks(doc);
 		for (int imageCounter = 0; imageCounter < images.size(); imageCounter++) {
 			String url = images.get(imageCounter).getUrl();
 			System.out.println("Download image: " + url);

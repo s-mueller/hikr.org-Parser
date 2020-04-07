@@ -91,39 +91,29 @@ public class HikrGUI extends JFrame implements HikrListener {
 		startButton = new JButton("Starten");
 		startButton.setEnabled(false);
 		panel.add(startButton);
-		startButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent event) {
-				
-					startButton.setEnabled(false);
-					
-					Thread t = new Thread() {
-						public synchronized void run() {
-							try {
-								ExtractHTML.parse(name.getText(), 1);
-							} catch (MalformedURLException e) {
-								e.printStackTrace();
-							} catch (IOException e) {
-								e.printStackTrace();
-							}
+		startButton.addActionListener(event -> {
+
+				startButton.setEnabled(false);
+
+				Thread t = new Thread() {
+					public synchronized void run() {
+						try {
+							ExtractHTML.parse(name.getText(), 1);
+						} catch (MalformedURLException e) {
+							e.printStackTrace();
+						} catch (IOException e) {
+							e.printStackTrace();
 						}
-					};
-					t.start();
-					
-				
-			}
+					}
+				};
+				t.start();
+
+
 		});
 		
 		JButton cancel = new JButton("Abbrechen");
 		panel.add(cancel);
-		cancel.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				finish();
-			}
-			
-		});
+		cancel.addActionListener(e -> finish());
 		
 		return panel;
 	}

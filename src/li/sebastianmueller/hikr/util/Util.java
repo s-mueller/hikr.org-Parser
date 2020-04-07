@@ -1,4 +1,5 @@
 package li.sebastianmueller.hikr.util;
+
 import java.io.File;
 import java.math.BigDecimal;
 import java.math.RoundingMode;

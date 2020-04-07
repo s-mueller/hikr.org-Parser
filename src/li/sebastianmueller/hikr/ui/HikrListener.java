@@ -1,12 +1,12 @@
 package li.sebastianmueller.hikr.ui;
 public interface HikrListener {
 
-	public void updateStatus(double count, double total, String message);
+	void updateStatus(double count, double total, String message);
 	
-	public void done();
+	void done();
 
-	public void updateMessage(String message);
+	void updateMessage(String message);
 	
-	public void addPayload(double payloadSize);
+	void addPayload(double payloadSize);
 	
 }
