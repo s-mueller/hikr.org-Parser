@@ -19,7 +19,7 @@ public class HTMLFileExtractor {
 	private static final String PRINT_ACTION_URL = "&act=print&submit=Drucken";
 	
 	public static void extract(String userName, Document doc, String postID) throws IOException {
-		List<ImageDTO> images = ImageExtractor.getImageLinks(doc, userName + "/", postID);
+		List<ImageDTO> images = ImageExtractor.getImageLinks(doc);
 		
 		String imagePart = "";
 		for (ImageDTO image : images) {
@@ -28,8 +28,10 @@ public class HTMLFileExtractor {
 		
 		String url = PRINT_URL + postID + SELECTION_URL + imagePart + PRINT_ACTION_URL;
 		File localFile = new File(userName + "/" + postID + ".html");
-		FileUtils.copyURLToFile(new URL(url), localFile);
-		ExtractHTML.addPayload(Util.getFileSizeInKB(localFile));	
+		if (!localFile.exists()) {
+			FileUtils.copyURLToFile(new URL(url), localFile);
+			ExtractHTML.addPayload(Util.getFileSizeInKB(localFile));
+		}
 	}
 
 }

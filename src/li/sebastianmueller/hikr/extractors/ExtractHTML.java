@@ -29,7 +29,7 @@ public class ExtractHTML {
 	public static void parse(String userName, int startPosition) throws IOException {
 		List<String> links = getAllLinksForHikrUser(userName);
 		
-		double count = 1;
+		double count = 0;
 		
 		for (String link : links) {
 			for (HikrListener listener : listeners) {

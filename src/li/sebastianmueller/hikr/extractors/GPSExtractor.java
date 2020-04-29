@@ -26,8 +26,10 @@ public class GPSExtractor {
 				String linkHref = link.attr(HREF);
 				if (linkHref.startsWith(HTTP)) {
 					File localFile = new File(path + GPS_FOLDER + FilenameUtils.getBaseName(linkHref) + "." + FilenameUtils.getExtension(linkHref));
-					FileUtils.copyURLToFile(new URL(linkHref), localFile);
-					ExtractHTML.addPayload(Util.getFileSizeInKB(localFile));
+					if (!localFile.exists()) {
+						FileUtils.copyURLToFile(new URL(linkHref), localFile);
+						ExtractHTML.addPayload(Util.getFileSizeInKB(localFile));
+					}
 				}
 			}
 		} catch (Exception e) {}

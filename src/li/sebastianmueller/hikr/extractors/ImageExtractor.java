@@ -2,7 +2,6 @@ package li.sebastianmueller.hikr.extractors;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,10 +24,8 @@ public class ImageExtractor {
 	private static final String IMAGES_FOLDER = "bilder/";
 	private static final String GALLERY_TAG = "new_gallery";
 	private static final String SRC_TAG = "src";
-	private static final String IMAGE_TITLE_ATTRIBUTE = "title";
 	private static final String IMAGE_TAG = "img";
-	private static final String LINEBREAK = "\n";
-	
+
 	public static List<ImageDTO> getImageLinks(Document doc) {
 		List<ImageDTO> imageIDs = new ArrayList<>();
 		Element galleryElement = doc.getElementById(GALLERY_TAG);
@@ -38,7 +35,6 @@ public class ImageExtractor {
 
 		if (!images.isEmpty()) {
 			int imageCounter = 1;
-			StringBuilder imageTitles = new StringBuilder();
 			for (Element image : images) {
 				String url = image.absUrl(SRC_TAG);
 				if (url.equals(PDF_LOGO_URL)) {
@@ -47,14 +43,11 @@ public class ImageExtractor {
 					newURL = newURL.substring(newURL.indexOf(PHOTO) + PHOTO.length(), newURL.indexOf(HTML));
 					url = FILES_URL + newURL + PDF;
 				} else {
-					String title = image.attr(IMAGE_TITLE_ATTRIBUTE);
-					imageTitles.append(imageCounter + ": " + title + LINEBREAK);
-					url = url.substring(0, url.length() - 5) + url.substring(url.length() - 4, url.length());
+					url = url.substring(0, url.length() - 5) + url.substring(url.length() - 4);
 				}
 				imageIDs.add(new ImageDTO(getImageID(url), url));
 				imageCounter++;
 			}
-			imageTitles.deleteCharAt(imageTitles.lastIndexOf(LINEBREAK));
 		}
 		return imageIDs;
 	}
@@ -65,9 +58,11 @@ public class ImageExtractor {
 			String url = images.get(imageCounter).getUrl();
 			System.out.println("Download image: " + url);
 			File localFile = new File(path + IMAGES_FOLDER + postID + "/" + imageCounter + "." + FilenameUtils.getExtension(url));
-			FileUtils.copyURLToFile(new URL(url), localFile);
-			ExtractHTML.addPayload(Util.getFileSizeInKB(localFile));
-			ExtractHTML.updateMessage(url);
+			if (!localFile.exists()) {
+				FileUtils.copyURLToFile(new URL(url), localFile);
+				ExtractHTML.addPayload(Util.getFileSizeInKB(localFile));
+				ExtractHTML.updateMessage(url);
+			}
 		}
 	}
 	
