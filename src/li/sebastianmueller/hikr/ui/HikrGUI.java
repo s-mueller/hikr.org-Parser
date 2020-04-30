@@ -98,7 +98,7 @@ public class HikrGUI extends JFrame implements HikrListener {
 				Thread t = new Thread() {
 					public synchronized void run() {
 						try {
-							ExtractHTML.parse(name.getText(), 1382);
+							ExtractHTML.parse(name.getText(), 1);
 						} catch (MalformedURLException e) {
 							e.printStackTrace();
 						} catch (IOException e) {
