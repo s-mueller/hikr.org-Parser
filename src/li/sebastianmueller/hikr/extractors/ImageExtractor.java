@@ -2,6 +2,7 @@ package li.sebastianmueller.hikr.extractors;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -56,6 +57,9 @@ public class ImageExtractor {
 		List<ImageDTO> images = getImageLinks(doc);
 		for (int imageCounter = 0; imageCounter < images.size(); imageCounter++) {
 			String url = images.get(imageCounter).getUrl();
+			if (!exists(url)) {
+				url = url.substring(0, url.lastIndexOf(".")) + "l" + url.substring(url.lastIndexOf("."));
+			}
 			System.out.println("Download image: " + url);
 			File localFile = new File(path + IMAGES_FOLDER + postID + "/" + imageCounter + "." + FilenameUtils.getExtension(url));
 			if (!localFile.exists()) {
@@ -63,6 +67,19 @@ public class ImageExtractor {
 				ExtractHTML.addPayload(Util.getFileSizeInKB(localFile));
 				ExtractHTML.updateMessage(url);
 			}
+		}
+	}
+
+	public static boolean exists(String url){
+		try {
+			HttpURLConnection.setFollowRedirects(false);
+			HttpURLConnection con = (HttpURLConnection) new URL(url).openConnection();
+			con.setRequestMethod("HEAD");
+			return (con.getResponseCode() == HttpURLConnection.HTTP_OK);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			return false;
 		}
 	}
 	
