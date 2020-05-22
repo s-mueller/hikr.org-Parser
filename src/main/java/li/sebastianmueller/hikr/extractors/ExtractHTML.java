@@ -1,16 +1,13 @@
 package li.sebastianmueller.hikr.extractors;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.http.client.ClientProtocolException;
+import li.sebastianmueller.hikr.ui.HikrListener;
+import li.sebastianmueller.hikr.util.Util;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
-import li.sebastianmueller.hikr.ui.HikrListener;
-import li.sebastianmueller.hikr.util.Util;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ExtractHTML {
 

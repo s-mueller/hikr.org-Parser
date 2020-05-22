@@ -1,11 +1,7 @@
 package li.sebastianmueller.hikr.ui;
 
-import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.net.MalformedURLException;
+import li.sebastianmueller.hikr.extractors.ExtractHTML;
+import li.sebastianmueller.hikr.util.Util;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -17,9 +13,10 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-
-import li.sebastianmueller.hikr.extractors.ExtractHTML;
-import li.sebastianmueller.hikr.util.Util;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.io.IOException;
+import java.net.MalformedURLException;
 
 public class HikrGUI extends JFrame implements HikrListener {
 

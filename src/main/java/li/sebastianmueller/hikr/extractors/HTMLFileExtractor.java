@@ -1,15 +1,13 @@
 package li.sebastianmueller.hikr.extractors;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.List;
-
+import li.sebastianmueller.hikr.util.Util;
 import org.apache.commons.io.FileUtils;
 import org.jsoup.nodes.Document;
 
-import li.sebastianmueller.hikr.util.Util;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.util.List;
 
 public class HTMLFileExtractor {
 
